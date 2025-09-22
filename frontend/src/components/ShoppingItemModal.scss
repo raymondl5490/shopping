@@ -1,0 +1,258 @@
+// Shopping Item Modal Styles - BEM Architecture
+@import '../styles/variables';
+
+// Modal Overlay
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: $overlay;
+  @include flex-center;
+  z-index: $z-modal;
+  padding: $spacing-lg;
+}
+
+// Shopping Item Modal Block
+.shopping-item-modal {
+  background-color: $white;
+  border-radius: $radius-lg;
+  box-shadow: 0 8px 32px $shadow-light;
+  width: 100%;
+  max-width: $modal-max-width;
+  max-height: 90vh;
+  overflow-y: auto;
+  font-family: $font-primary;
+
+  // Header Element
+  &__header {
+    background-color: $primary-blue;
+    color: $white;
+    padding: $spacing-base $spacing-lg;
+    @include flex-between;
+    border-radius: $radius-lg $radius-lg 0 0;
+    border-bottom: $border-thin solid $border-light;
+  }
+
+  &__title {
+    margin: 0;
+    font-family: $font-secondary;
+    font-size: $font-lg;
+    font-weight: $font-weight-medium;
+    letter-spacing: 1px;
+  }
+
+  &__close {
+    @include button-reset;
+    color: $white;
+    padding: $spacing-xs;
+    border-radius: $radius-sm;
+    transition: $transition-base;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .material-icons {
+      font-size: $font-2xl;
+    }
+  }
+
+  // Content Element
+  &__content {
+    padding: $modal-padding;
+  }
+
+  &__subtitle {
+    margin: 0 0 $spacing-sm 0;
+    font-size: $font-xl;
+    font-weight: $font-weight-semibold;
+    color: $text-dark;
+  }
+
+  &__description {
+    margin: 0 0 $spacing-xl 0;
+    font-size: $font-sm;
+    color: $text-gray;
+    font-weight: $font-weight-normal;
+  }
+
+  // Form Element
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-lg;
+  }
+
+  &__field {
+    position: relative;
+
+    &--checkbox {
+      display: flex;
+      align-items: center;
+      margin-top: 8px;
+    }
+  }
+
+  // Input Elements
+  &__input,
+  &__textarea,
+  &__select {
+    width: 100%;
+    padding: $input-padding;
+    border: $border-thin solid $border-gray;
+    border-radius: $radius-base;
+    font-size: $font-base;
+    font-family: $font-primary;
+    background-color: $white;
+    transition: $transition-base;
+
+    &:focus {
+      outline: none;
+      border-color: $button-blue;
+    }
+
+    &::placeholder {
+      color: $text-gray;
+    }
+  }
+
+  &__textarea {
+    resize: vertical;
+    min-height: $textarea-min-height;
+    font-family: $font-primary;
+  }
+
+  &__select {
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 20px;
+    cursor: pointer;
+  }
+
+  &__char-count {
+    position: absolute;
+    bottom: $spacing-sm;
+    right: $spacing-md;
+    font-size: $font-xs;
+    color: $text-gray;
+    background-color: $white;
+    padding: $spacing-xs / 2 $spacing-xs;
+  }
+
+  // Checkbox Elements
+  &__checkbox-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 16px;
+    color: $text-gray;
+  }
+
+  &__checkbox {
+    width: 18px;
+    height: 18px;
+    margin-right: 12px;
+    cursor: pointer;
+  }
+
+  &__checkbox-text {
+    user-select: none;
+  }
+
+  // Actions Element
+  &__actions {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+    margin-top: 12px;
+  }
+
+  // Button Element
+  &__button {
+    padding: $button-padding;
+    border: none;
+    border-radius: $radius-base;
+    font-size: $font-base;
+    font-family: $font-primary;
+    font-weight: $font-weight-semibold;
+    cursor: pointer;
+    transition: $transition-base;
+
+    &--cancel {
+      background-color: transparent;
+      color: $text-gray;
+      border: 1px solid transparent;
+
+      &:hover {
+        background-color: $bg-gray;
+      }
+    }
+
+    &--primary {
+      background-color: $button-blue;
+      color: $white;
+
+      &:hover {
+        background-color: $button-blue-hover;
+      }
+
+      &:disabled {
+        background-color: $text-gray;
+        cursor: not-allowed;
+      }
+    }
+  }
+}
+
+// Responsive Design
+@include mobile {
+  .modal-overlay {
+    padding: $spacing-base;
+  }
+
+  .shopping-item-modal {
+    max-width: 100%;
+    
+    &__header {
+      padding: $spacing-md $spacing-base;
+    }
+
+    &__title {
+      font-size: $font-base;
+    }
+
+    &__content {
+      padding: $spacing-lg $spacing-base;
+    }
+
+    &__actions {
+      flex-direction: column-reverse;
+      gap: $spacing-sm;
+    }
+
+    &__button {
+      width: 100%;
+      padding: 14px $spacing-xl;
+    }
+  }
+}
+
+// Animation for modal entrance
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.shopping-item-modal {
+  animation: modalSlideIn 0.2s ease-out;
+}

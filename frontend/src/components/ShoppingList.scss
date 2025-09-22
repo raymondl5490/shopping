@@ -1,16 +1,5 @@
 // Shopping List Component - BEM Architecture
-// Variables
-$primary-blue: #5B9BD5;
-$button-blue: #2E75B6;
-$button-blue-hover: #1f5a8c;
-$text-gray: #888;
-$bg-gray: #f5f5f5;
-$white: #ffffff;
-$border-gray: #ddd;
-
-// Typography
-$font-primary: 'Nunito', sans-serif;
-$font-secondary: 'Dosis', sans-serif;
+@import '../styles/variables';
 
 // Shopping List Block
 .shopping-list {
@@ -22,21 +11,21 @@ $font-secondary: 'Dosis', sans-serif;
   &__header {
     background-color: $primary-blue;
     color: $white;
-    padding: 20px 0;
+    padding: $header-padding;
   }
 
   &__title {
     margin: 0;
     font-family: $font-secondary;
-    font-size: 24px;
-    font-weight: 500;
+    font-size: $font-2xl;
+    font-weight: $font-weight-medium;
     letter-spacing: 1px;
-    padding: 0 20px;
+    padding: 0 $spacing-lg;
   }
 
   // Main Content Element
   &__main {
-    padding: 40px 20px;
+    padding: $content-padding;
     display: flex;
     justify-content: center;
   }
@@ -49,12 +38,10 @@ $font-secondary: 'Dosis', sans-serif;
   // Empty State Element
   &__empty-state {
     background-color: $white;
-    border: 1px solid $border-gray;
-    border-radius: 8px;
+    border: $border-thin solid $border-gray;
+    border-radius: $radius-lg;
     min-height: 400px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    @include flex-center;
   }
 
   &__empty-content {
@@ -63,9 +50,9 @@ $font-secondary: 'Dosis', sans-serif;
 
   &__empty-message {
     color: $text-gray;
-    font-size: 18px;
-    font-weight: 300;
-    margin-bottom: 20px;
+    font-size: $font-lg;
+    font-weight: $font-weight-normal;
+    margin-bottom: $spacing-lg;
     margin-top: 0;
   }
 
@@ -74,13 +61,13 @@ $font-secondary: 'Dosis', sans-serif;
     background-color: $button-blue;
     color: $white;
     border: none;
-    padding: 12px 24px;
-    border-radius: 5px;
+    padding: $button-padding;
+    border-radius: $radius-base;
     cursor: pointer;
     font-family: $font-primary;
-    font-size: 16px;
-    font-weight: 600;
-    transition: background-color 0.2s ease;
+    font-size: $font-base;
+    font-weight: $font-weight-semibold;
+    transition: $transition-base;
 
     &:hover {
       background-color: $button-blue-hover;
@@ -88,7 +75,7 @@ $font-secondary: 'Dosis', sans-serif;
 
     // Button Modifier for smaller size
     &--small {
-      padding: 10px 20px;
+      padding: $button-padding-small;
       font-size: 14px;
     }
 
@@ -99,6 +86,37 @@ $font-secondary: 'Dosis', sans-serif;
       vertical-align: middle;
     }
   }
+
+  // Items Section
+  &__items-section {
+    background-color: $white;
+    border: 1px solid $border-gray;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  &__items-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid $border-gray;
+    background-color: $white;
+  }
+
+  &__items-title {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+    color: #333;
+  }
+
+  &__items-list {
+    max-height: 400px;
+    overflow-y: auto;
+  }
+
+
 
   // Icon utilities
   &__icon {
@@ -117,10 +135,10 @@ $font-secondary: 'Dosis', sans-serif;
 }
 
 // Responsive Design
-@media (max-width: 768px) {
+@include mobile {
   .shopping-list {
     &__main {
-      padding: 20px 16px;
+      padding: $spacing-lg $spacing-base;
     }
     
     &__container {
@@ -129,11 +147,11 @@ $font-secondary: 'Dosis', sans-serif;
     
     &__empty-state {
       min-height: 300px;
-      margin: 0 10px;
+      margin: 0 $spacing-sm;
     }
     
     &__title {
-      font-size: 20px;
+      font-size: $font-xl;
     }
   }
 }

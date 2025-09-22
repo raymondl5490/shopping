@@ -1,0 +1,199 @@
+// Global Base Styles
+@import './variables';
+
+// CSS Reset & Base Styles
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-family: $font-primary;
+  font-size: $font-base;
+  line-height: $line-height-normal;
+  color: $text-dark;
+  background-color: $bg-gray;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  isolation: isolate;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+// Utility Classes
+.container {
+  width: 100%;
+  max-width: $container-lg;
+  margin: 0 auto;
+  padding: 0 $spacing-base;
+
+  @include mobile {
+    padding: 0 $spacing-base;
+  }
+}
+
+.sr-only {
+  @include sr-only;
+}
+
+// Common Button Styles
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-sm;
+  padding: $button-padding;
+  border: none;
+  border-radius: $radius-base;
+  font-family: $font-primary;
+  font-size: $font-base;
+  font-weight: $font-weight-semibold;
+  text-decoration: none;
+  cursor: pointer;
+  transition: $transition-base;
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  // Primary Button
+  &--primary {
+    background-color: $button-blue;
+    color: $white;
+
+    &:hover:not(:disabled) {
+      background-color: $button-blue-hover;
+    }
+  }
+
+  // Secondary Button
+  &--secondary {
+    background-color: transparent;
+    color: $text-gray;
+    border: $border-thin solid $border-gray;
+
+    &:hover:not(:disabled) {
+      background-color: $bg-gray;
+      border-color: $text-gray;
+    }
+  }
+
+  // Danger Button
+  &--danger {
+    background-color: $danger;
+    color: $white;
+
+    &:hover:not(:disabled) {
+      background-color: $danger-hover;
+    }
+  }
+
+  // Small Button
+  &--small {
+    padding: $button-padding-small;
+    font-size: $font-sm;
+  }
+
+  // Large Button
+  &--large {
+    padding: $spacing-base $spacing-2xl;
+    font-size: $font-lg;
+  }
+}
+
+// Form Styles
+.form-group {
+  margin-bottom: $spacing-lg;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: $spacing-sm;
+  font-weight: $font-weight-medium;
+  color: $text-dark;
+}
+
+.form-input {
+  width: 100%;
+  padding: $input-padding;
+  border: $border-thin solid $border-gray;
+  border-radius: $radius-base;
+  font-size: $font-base;
+  font-family: $font-primary;
+  background-color: $white;
+  transition: $transition-base;
+
+  &:focus {
+    outline: none;
+    border-color: $button-blue;
+    @include focus-ring($button-blue);
+  }
+
+  &::placeholder {
+    color: $text-gray;
+  }
+
+  &:invalid {
+    border-color: $danger;
+  }
+}
+
+// Material Icons
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}
