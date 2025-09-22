@@ -1,16 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import './ShoppingList.scss';
 import ShoppingItemAdd from './ShoppingItemAdd';
 import ShoppingItemEdit from './ShoppingItemEdit';
 import ShoppingItem from './ShoppingItem';
 import ConfirmationModal from './ConfirmationModal';
+import {
+  fetchItemsRequest,
+  addItemRequest,
+  updateItemRequest,
+  toggleItemRequest,
+  deleteItemRequest,
+  selectAllItems,
+  selectItemsLoading,
+  selectItemsError,
+} from '../store/slices/shoppingItemsSlice';
 
 function ShoppingList() {
+  const dispatch = useDispatch();
+  const items = useSelector(selectAllItems);
+  const loading = useSelector(selectItemsLoading);
+  const error = useSelector(selectItemsError);
+  
   const [showAddModal, setShowAddModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
-  const [items, setItems] = useState([]);
+
+  // Fetch items on component mount
+  useEffect(() => {
+    dispatch(fetchItemsRequest());
+  }, [dispatch]);
 
   const handleAddItem = () => {
     setShowAddModal(true);
@@ -21,12 +41,7 @@ function ShoppingList() {
   };
 
   const handleSaveNewItem = (itemData) => {
-    const newItem = {
-      id: Date.now(), // Simple ID generation
-      ...itemData,
-      purchased: false
-    };
-    setItems(prev => [...prev, newItem]);
+    dispatch(addItemRequest(itemData));
     setShowAddModal(false);
   };
 
@@ -41,17 +56,13 @@ function ShoppingList() {
   };
 
   const handleSaveEditedItem = (updatedItem) => {
-    setItems(prev => prev.map(item => 
-      item.id === updatedItem.id ? updatedItem : item
-    ));
+    dispatch(updateItemRequest(updatedItem));
     setShowEditModal(false);
     setSelectedItem(null);
   };
 
   const handleTogglePurchased = (itemId) => {
-    setItems(prev => prev.map(item => 
-      item.id === itemId ? { ...item, purchased: !item.purchased } : item
-    ));
+    dispatch(toggleItemRequest(itemId));
   };
 
   const handleDeleteItem = (itemToDelete) => {
@@ -61,7 +72,7 @@ function ShoppingList() {
 
   const handleConfirmDelete = () => {
     if (selectedItem) {
-      setItems(prev => prev.filter(item => item.id !== selectedItem.id));
+      dispatch(deleteItemRequest(selectedItem.id));
     }
     setShowDeleteModal(false);
     setSelectedItem(null);
@@ -79,9 +90,24 @@ function ShoppingList() {
         <h1 className="shopping-list__title">SHOPPING LIST</h1>
       </header>
 
+      {/* Error Message */}
+      {error && (
+        <div className="shopping-list__error">
+          <p>{error}</p>
+          <button onClick={() => dispatch(fetchItemsRequest())}>
+            Retry
+          </button>
+        </div>
+      )}
+
       {/* Main Content */}
       <main className="shopping-list__main">
         <div className="shopping-list__container">
+          {loading ? (
+            <div className="shopping-list__loading">
+              <p>Loading items...</p>
+            </div>
+          ) : null}
           {items.length === 0 ? (
             /* Empty State */
             <div className="shopping-list__empty-state">

@@ -42,9 +42,6 @@ function ShoppingItem({
         {item.description && (
           <p className="shopping-item__description">{item.description}</p>
         )}
-        {item.quantity && item.quantity > 1 && (
-          <span className="shopping-item__quantity">Qty: {item.quantity}</span>
-        )}
       </div>
 
       {/* Action Buttons */}

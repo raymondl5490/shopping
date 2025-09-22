@@ -48,6 +48,51 @@
     text-align: center;
   }
 
+  // Loading State Element
+  &__loading {
+    background-color: $white;
+    border: $border-thin solid $border-gray;
+    border-radius: $radius-lg;
+    min-height: 200px;
+    @include flex-center;
+    
+    p {
+      color: $text-gray;
+      font-size: $font-base;
+    }
+  }
+
+  // Error State Element
+  &__error {
+    background-color: #fef2f2;
+    border: $border-thin solid #fca5a5;
+    border-radius: $radius-lg;
+    padding: $spacing-lg;
+    margin: $spacing-lg;
+    text-align: center;
+
+    p {
+      color: #dc2626;
+      margin: 0 0 $spacing-md 0;
+      font-weight: $font-weight-medium;
+    }
+
+    button {
+      background-color: #dc2626;
+      color: $white;
+      border: none;
+      padding: $spacing-sm $spacing-base;
+      border-radius: $radius-base;
+      cursor: pointer;
+      font-size: $font-sm;
+      transition: $transition-base;
+
+      &:hover {
+        background-color: #b91c1c;
+      }
+    }
+  }
+
   &__empty-message {
     color: $text-gray;
     font-size: $font-lg;
