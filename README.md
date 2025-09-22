@@ -10,6 +10,10 @@ A full-stack shopping list application built with React frontend and Node.js bac
 - **Styling**: SCSS with BEM methodology
 - **Containerization**: Docker & Docker Compose
 
+## 📸 Screenshot
+
+![Shopping List App](docs/screenshot.png)
+
 ## 🚀 Quick Start with Docker (Recommended)
 
 ### Prerequisites
